@@ -12,7 +12,8 @@ import {
   Typography,
   TextField,
   InputAdornment,
-  Alert
+  Alert,
+  Snackbar
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -66,25 +67,55 @@ const TenantList = () => {
   };
 
   const updateStatus = (id, status) => {
-    setTenants(prev => prev.map(t => t.id === id ? { ...t, subscriptionStatus: status } : t));
-    setFilteredTenants(prev => prev.map(t => t.id === id ? { ...t, subscriptionStatus: status } : t));
+    setTenants(prev =>
+      prev.map(t =>
+        t.id === id || t.tenantId === id
+          ? { ...t, subscriptionStatus: status }
+          : t
+      )
+    );
+    setFilteredTenants(prev =>
+      prev.map(t =>
+        t.id === id || t.tenantId === id
+          ? { ...t, subscriptionStatus: status }
+          : t
+      )
+    );
+  };
+
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+
+  const showSnackbar = (message, severity = 'success') => {
+    setSnackbar({ open: true, message, severity });
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbar(prev => ({ ...prev, open: false }));
   };
 
   const handleActivate = async (tenant) => {
+    const tenantId = tenant.id ?? tenant.tenantId;
+    if (!tenantId) return;
     try {
-      await activateTenantById(tenant.id, token);
-      updateStatus(tenant.id, 'ACTIVE');
+      await activateTenantById(tenantId, token);
+      updateStatus(tenantId, 'ACTIVE');
+      showSnackbar('Tenant activated successfully');
     } catch (err) {
       console.error('Failed to activate tenant', err);
+      showSnackbar('Failed to activate tenant', 'error');
     }
   };
 
   const handleDeactivate = async (tenant) => {
+    const tenantId = tenant.id ?? tenant.tenantId;
+    if (!tenantId) return;
     try {
-      await deactivateTenantById(tenant.id, token);
-      updateStatus(tenant.id, 'INACTIVE');
+      await deactivateTenantById(tenantId, token);
+      updateStatus(tenantId, 'INACTIVE');
+      showSnackbar('Tenant deactivated successfully');
     } catch (err) {
       console.error('Failed to deactivate tenant', err);
+      showSnackbar('Failed to deactivate tenant', 'error');
     }
   };
 
@@ -151,7 +182,7 @@ const TenantList = () => {
             </TableHead>
             <TableBody>
               {filteredTenants.map((tenant) => (
-                <TableRow key={tenant.id}>
+                <TableRow key={tenant.id || tenant.tenantId}>
                   <TableCell>{tenant.schemaName}</TableCell>
                   <TableCell>{tenant.name}</TableCell> 
                   <TableCell>{tenant.tenantAdmin?.firstName} {tenant.tenantAdmin?.lastName}</TableCell>
@@ -194,6 +225,17 @@ const TenantList = () => {
           </Table>
         </TableContainer>
       )}
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
