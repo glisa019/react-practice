@@ -1,0 +1,11 @@
+.home-image {
+  width: 100vw;
+  height: calc(100vh - 4rem);
+  object-fit: cover;
+  opacity: 0.2;
+}
+
+.home-content {
+  top: calc((100vh - 4rem) / 3);
+  /* left: 4rem; */
+}
