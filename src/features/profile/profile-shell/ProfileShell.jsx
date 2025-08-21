@@ -64,15 +64,17 @@ const ProfileShell = () => {
 
   return (
     <div>
-      <div className="w-full px-3 h-16 flex justify-end items-center">
-              <Button
-                variant="outlined"
-                startIcon={<PreviewIcon />}
-                onClick={() => navigate(`/tenant/${tenantKey}/view`)}
-              >
-                Preview Tenant
-              </Button>
-            </div>
+      {user?.role !== 'ADMIN' && (
+        <div className="w-full px-3 h-16 flex justify-end items-center">
+          <Button
+            variant="outlined"
+            startIcon={<PreviewIcon />}
+            onClick={() => navigate(`/tenant/${tenantKey}/view`)}
+          >
+            Preview Tenant
+          </Button>
+        </div>
+      )}
     <Box sx={{ display: 'flex', minHeight: 400, bgcolor: '#f5f5f5', p: 3 }}>
       <Paper elevation={2} sx={{ minWidth: 220, mr: 3 }}>
         <Tabs
