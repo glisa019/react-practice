@@ -53,7 +53,8 @@ const TenantList = () => {
       tenant.phone?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       tenant.address?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       tenant.motto?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tenant.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      tenant.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      tenant.subscriptionStatus?.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredTenants(filtered);
   }, [searchTerm, tenants]);
@@ -119,6 +120,7 @@ const TenantList = () => {
                 <TableCell>Address</TableCell>
                 <TableCell>Motto</TableCell>
                 <TableCell>Description</TableCell>
+                <TableCell>Subscription Status</TableCell>
                 <TableCell align="center">Action</TableCell>
               </TableRow>
             </TableHead>
@@ -132,6 +134,7 @@ const TenantList = () => {
                   <TableCell>{tenant.address}</TableCell>
                   <TableCell>{tenant.motto}</TableCell>
                   <TableCell>{tenant.description}</TableCell>
+                  <TableCell>{tenant.subscriptionStatus}</TableCell>
                   <TableCell align="center">
                     <IconButton
                       color="primary"
