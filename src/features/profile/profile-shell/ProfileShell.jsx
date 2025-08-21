@@ -14,7 +14,12 @@ import ProfileSettings from '../profile-settings/ProfileSettings';
 const ALL_TABS = [
   { id: 'general-details', label: 'General Details', component: ProfileGeneralDetails },
   { id: 'employee-availability', label: 'Availability', component: ProfileAvailabilityList, roles: ['EMPLOYEE'] },
-  { id: 'reservations', label: 'Reservations', component: ProfileReservationList },
+  {
+    id: 'reservations',
+    label: 'Reservations',
+    component: ProfileReservationList,
+    hideForRoles: ['TENANT_ADMIN', 'ADMIN']
+  },
   { id: 'settings', label: 'Settings', component: ProfileSettings }
 ];
 
@@ -26,8 +31,10 @@ const ProfileShell = () => {
   const [loading, setLoading] = useState(false);
 
   // Filter tabs based on user role
-  const availableTabs = ALL_TABS.filter(tab => 
-    !tab.roles || tab.roles.includes(user?.role)
+  const availableTabs = ALL_TABS.filter(
+    (tab) =>
+      (!tab.roles || tab.roles.includes(user?.role)) &&
+      (!tab.hideForRoles || !tab.hideForRoles.includes(user?.role))
   );
 
   // Find current tab index
