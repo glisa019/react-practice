@@ -16,8 +16,10 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BlockIcon from '@mui/icons-material/Block';
 import { useNavigate } from 'react-router-dom';
-import { getTenants } from '../../services/tenantService';
+import { getTenants, activateTenantById, deactivateTenantById } from '../../services/tenantService';
 import { useAuth } from '../../../auth/context/AuthContext';
 
 const TenantList = () => {
@@ -26,7 +28,7 @@ const TenantList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
 
   useEffect(() => {
     const fetchTenants = async () => {
@@ -61,6 +63,29 @@ const TenantList = () => {
 
   const handleView = (tenant) => {
     navigate(`/tenant/${tenant.schemaName}/view`);
+  };
+
+  const updateStatus = (id, status) => {
+    setTenants(prev => prev.map(t => t.id === id ? { ...t, subscriptionStatus: status } : t));
+    setFilteredTenants(prev => prev.map(t => t.id === id ? { ...t, subscriptionStatus: status } : t));
+  };
+
+  const handleActivate = async (tenant) => {
+    try {
+      await activateTenantById(tenant.id, token);
+      updateStatus(tenant.id, 'ACTIVE');
+    } catch (err) {
+      console.error('Failed to activate tenant', err);
+    }
+  };
+
+  const handleDeactivate = async (tenant) => {
+    try {
+      await deactivateTenantById(tenant.id, token);
+      updateStatus(tenant.id, 'INACTIVE');
+    } catch (err) {
+      console.error('Failed to deactivate tenant', err);
+    }
   };
 
   const handleSearchChange = (event) => {
@@ -121,7 +146,7 @@ const TenantList = () => {
                 <TableCell>Motto</TableCell>
                 <TableCell>Description</TableCell>
                 <TableCell>Subscription Status</TableCell>
-                <TableCell align="center">Action</TableCell>
+                <TableCell align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -143,6 +168,25 @@ const TenantList = () => {
                     >
                       <VisibilityIcon fontSize="medium" />
                     </IconButton>
+                    {user?.role === 'ADMIN' && (
+                      tenant.subscriptionStatus === 'INACTIVE' ? (
+                        <IconButton
+                          color="success"
+                          size="small"
+                          onClick={() => handleActivate(tenant)}
+                        >
+                          <CheckCircleIcon fontSize="medium" />
+                        </IconButton>
+                      ) : tenant.subscriptionStatus === 'ACTIVE' ? (
+                        <IconButton
+                          color="error"
+                          size="small"
+                          onClick={() => handleDeactivate(tenant)}
+                        >
+                          <BlockIcon fontSize="medium" />
+                        </IconButton>
+                      ) : null
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

@@ -32,6 +32,24 @@ export const getTenants = async (token) => {
   return response.data;
 };
 
+export const activateTenantById = async (id, token) => {
+  const response = await axios.post(`${API_URL}/tenants/${id}/activate`, null, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const deactivateTenantById = async (id, token) => {
+  const response = await axios.delete(`${API_URL}/tenants/${id}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
 export const getTenantByKey = async (tenantKey, token) => {
   const response = await axios.get(`${API_URL}/tenants/key/${tenantKey}`, {
       headers: {
@@ -81,3 +99,4 @@ export const updateTenant = async (tenantData, tenantKey, token) => {
   });
   return response.data;
 };
+
