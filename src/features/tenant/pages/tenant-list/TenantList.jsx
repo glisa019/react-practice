@@ -12,12 +12,15 @@ import {
   Typography,
   TextField,
   InputAdornment,
-  Alert
+  Alert,
+  Snackbar
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BlockIcon from '@mui/icons-material/Block';
 import { useNavigate } from 'react-router-dom';
-import { getTenants } from '../../services/tenantService';
+import { getTenants, activateTenantById, deactivateTenantById } from '../../services/tenantService';
 import { useAuth } from '../../../auth/context/AuthContext';
 
 const TenantList = () => {
@@ -26,7 +29,7 @@ const TenantList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
 
   useEffect(() => {
     const fetchTenants = async () => {
@@ -61,6 +64,59 @@ const TenantList = () => {
 
   const handleView = (tenant) => {
     navigate(`/tenant/${tenant.schemaName}/view`);
+  };
+
+  const updateStatus = (id, status) => {
+    setTenants(prev =>
+      prev.map(t =>
+        t.id === id || t.tenantId === id
+          ? { ...t, subscriptionStatus: status }
+          : t
+      )
+    );
+    setFilteredTenants(prev =>
+      prev.map(t =>
+        t.id === id || t.tenantId === id
+          ? { ...t, subscriptionStatus: status }
+          : t
+      )
+    );
+  };
+
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+
+  const showSnackbar = (message, severity = 'success') => {
+    setSnackbar({ open: true, message, severity });
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbar(prev => ({ ...prev, open: false }));
+  };
+
+  const handleActivate = async (tenant) => {
+    const tenantId = tenant.id ?? tenant.tenantId;
+    if (!tenantId) return;
+    try {
+      await activateTenantById(tenantId, token);
+      updateStatus(tenantId, 'ACTIVE');
+      showSnackbar('Tenant activated successfully');
+    } catch (err) {
+      console.error('Failed to activate tenant', err);
+      showSnackbar('Failed to activate tenant', 'error');
+    }
+  };
+
+  const handleDeactivate = async (tenant) => {
+    const tenantId = tenant.id ?? tenant.tenantId;
+    if (!tenantId) return;
+    try {
+      await deactivateTenantById(tenantId, token);
+      updateStatus(tenantId, 'INACTIVE');
+      showSnackbar('Tenant deactivated successfully');
+    } catch (err) {
+      console.error('Failed to deactivate tenant', err);
+      showSnackbar('Failed to deactivate tenant', 'error');
+    }
   };
 
   const handleSearchChange = (event) => {
@@ -121,12 +177,12 @@ const TenantList = () => {
                 <TableCell>Motto</TableCell>
                 <TableCell>Description</TableCell>
                 <TableCell>Subscription Status</TableCell>
-                <TableCell align="center">Action</TableCell>
+                <TableCell align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {filteredTenants.map((tenant) => (
-                <TableRow key={tenant.id}>
+                <TableRow key={tenant.id || tenant.tenantId}>
                   <TableCell>{tenant.schemaName}</TableCell>
                   <TableCell>{tenant.name}</TableCell> 
                   <TableCell>{tenant.tenantAdmin?.firstName} {tenant.tenantAdmin?.lastName}</TableCell>
@@ -143,6 +199,25 @@ const TenantList = () => {
                     >
                       <VisibilityIcon fontSize="medium" />
                     </IconButton>
+                    {user?.role === 'ADMIN' && (
+                      tenant.subscriptionStatus === 'INACTIVE' ? (
+                        <IconButton
+                          color="success"
+                          size="small"
+                          onClick={() => handleActivate(tenant)}
+                        >
+                          <CheckCircleIcon fontSize="medium" />
+                        </IconButton>
+                      ) : tenant.subscriptionStatus === 'ACTIVE' ? (
+                        <IconButton
+                          color="error"
+                          size="small"
+                          onClick={() => handleDeactivate(tenant)}
+                        >
+                          <BlockIcon fontSize="medium" />
+                        </IconButton>
+                      ) : null
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
@@ -150,6 +225,17 @@ const TenantList = () => {
           </Table>
         </TableContainer>
       )}
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleSnackbarClose} severity={snackbar.severity} sx={{ width: '100%' }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
