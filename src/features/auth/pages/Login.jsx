@@ -58,7 +58,8 @@ const Login = () => {
       !response.tenantExists ? navigate('/tenant/form') : navigate(`/tenant/${response.tenantKey}/view`);
     } catch (err) {
       console.error('Login failed', err);
-      setError('Login failed');
+      const message = err.response?.data?.message || err.message || 'Login failed';
+      setError(message);
     } finally {
       setLoading(false);
     }
