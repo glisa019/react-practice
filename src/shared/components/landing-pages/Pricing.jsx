@@ -1,7 +1,9 @@
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const Pricing = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const plans = [
     { 
@@ -105,11 +107,14 @@ const Pricing = () => {
                 ))}
               </ul>
               
-              <button className={`mt-8 w-full py-3 px-6 rounded-lg font-medium ${
-                plan.popular 
-                  ? "bg-blue-600 text-white hover:bg-blue-700" 
+              <button
+                className={`mt-8 w-full py-3 px-6 rounded-lg font-medium ${
+                plan.popular
+                  ? "bg-blue-600 text-white hover:bg-blue-700"
                   : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-              }`}>
+              }`}
+                onClick={() => navigate('/register')}
+              >
                 {t("PRICING.CTA")}
               </button>
             </div>
