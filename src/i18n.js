@@ -86,10 +86,55 @@ const resources = {
         "CREATE_TENANT": "Kreiraj Tenant",
         "BECOME_A_TENANT": "Postani Tenant",
         "TENANT_FORM": "Tenant forma",
-        "SUBMIT": "Submit"
+        "SUBMIT": "Pošalji"
       },
       "CONTACT": {
         "HEADER": "Kontaktirajte nas"
+      },
+      "FEATURES": {
+        "HEADER": "Snažne multi-tenant funkcionalnosti",
+        "SUBHEADER": "Dizajniran da se bezbedno skalira preko hiljada zakupaca.",
+        "CORE": "Osnovne funkcionalnosti",
+        "COMMUNICATION": "Komunikacija",
+        "SECURITY": "Bezbednost",
+        "MULTI_TENANT": "Izolacija između zakupaca",
+        "MULTI_TENANT_DESC": "Svaki zakupac dobija potpuno izolovano okruženje uz efikasnost deljene infrastrukture.",
+        "SCHEDULING": "Napredno zakazivanje",
+        "SCHEDULING_DESC": "Zakazivanje specifično za zakupca sa prilagođenim pravilima i prioritetima.",
+        "NOTIFICATIONS": "Obaveštenja u realnom vremenu",
+        "NOTIFICATIONS_DESC": "Podesiva obaveštenja po zakupcu putem e-pošte, SMS-a ili u aplikaciji.",
+        "RBAC": "Pristup zasnovan na ulogama",
+        "RBAC_DESC": "Granularna ovlašćenja za administratore i korisnike zakupaca.",
+        "LEARN_MORE": "Saznaj više →"
+      },
+      "PRICING": {
+        "HEADER": "Jednostavne, transparentne cene",
+        "SUBHEADER": "Izaberite plan koji odgovara potrebama vašeg zakupca",
+        "PER_MONTH": "mesec",
+        "CUSTOM": "Prilagođeno",
+        "MOST_POPULAR": "Najpopularniji",
+        "CTA": "Započni",
+        "FAQ_HEADER": "Često postavljana pitanja",
+        "FAQ_1_Q": "Mogu li kasnije promeniti plan?",
+        "FAQ_1_A": "Da, možete uvek preći na viši ili niži plan.",
+        "FEATURE_1": "Izolacija više zakupaca",
+        "FEATURE_2": "Osnovna analitika",
+        "FEATURE_3": "Prilagođavanje",
+        "FEATURE_4": "Konfiguracija zakupca",
+        "FEATURE_5": "Migracija",
+        "BASIC": "OSNOVNI",
+        "PRO": "PRO",
+        "ENTERPRISE": "ENTERPRISE"
+      },
+      "ABOUT": {
+        "HEADER": "O nama",
+        "DESCRIPTION": "Gradimo budućnost zakazivanja za organizacije svih veličina — dizajniranu za više zakupaca, bezbednu i potpuno prilagodljivu.",
+        "MISSION_TITLE": "Naša misija",
+        "MISSION_TEXT": "Da pojednostavimo zakazivanje za moderne timove stvaranjem inteligentne, skalabilne platforme koja se prilagođava toku rada svake organizacije.",
+        "VISION_TITLE": "Naša vizija",
+        "VISION_TEXT": "Da postanemo najpouzdanija infrastruktura za zakazivanje u svim industrijama i zemljama.",
+        "WHO_FOR_TITLE": "Kome služimo",
+        "WHO_FOR_TEXT": "Bilo da vodite mali biznis, globalno preduzeće ili mrežu nezavisnih profesionalaca, naša platforma vam pomaže da ostanete organizovani i efikasni."
       }
     }
   },
