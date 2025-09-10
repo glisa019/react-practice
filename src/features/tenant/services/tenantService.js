@@ -79,10 +79,15 @@ export const getTenantMe = async (token) => {
 };
 
 export const updateTenant = async (tenantData, tenantKey, token) => {
-  
+
   const formData = new FormData();
 
   Object.entries(tenantData).forEach(([key, value]) => {
+    // Skip existing image URLs for logo and coverPicture
+    if ((key === 'logo' || key === 'coverPicture') && !(value instanceof File)) {
+      return;
+    }
+
     if (value instanceof File || typeof value === 'string') {
       formData.append(key, value);
     } else if (typeof value === 'object' && value !== null) {
