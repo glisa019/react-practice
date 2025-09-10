@@ -12,7 +12,7 @@ import {
 import { AiFillTikTok } from 'react-icons/ai';
 import { CiInstagram } from 'react-icons/ci';
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
-import { toPublicUrl } from '../../../../shared/utils/urlUtils';
+import { toPublicUrl, formatSocialUrl } from '../../../../shared/utils/urlUtils';
 import { BASE_URL } from '../../../../shared/api';
 import { useAuth } from '../../../auth/context/AuthContext';
 
@@ -59,6 +59,8 @@ const TenantView = () => {
   const data = tenant || fallbackTenant;
   const coverUrl = toPublicUrl(data.coverPictureUrl, BASE_URL);
   const logoUrl = toPublicUrl(data.logoUrl, BASE_URL);
+  const tiktokUrl = formatSocialUrl(data.tiktok, 'tiktok');
+  const instagramUrl = formatSocialUrl(data.instagram, 'instagram');
 
 
   return (
@@ -162,11 +164,11 @@ const TenantView = () => {
               <Typography variant="body1" sx={{ my: 2 }}>
                 {data.description}
               </Typography>
-              {(data.tiktok || data.instagram) && (
+              {(tiktokUrl || instagramUrl) && (
                 <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
-                  {data.tiktok && (
+                  {tiktokUrl && (
                     <Button
-                      href={data.tiktok}
+                      href={tiktokUrl}
                       target="_blank"
                       startIcon={<AiFillTikTok />}
                       sx={{ textTransform: 'none' }}
@@ -174,9 +176,9 @@ const TenantView = () => {
                       TikTok
                     </Button>
                   )}
-                  {data.instagram && (
+                  {instagramUrl && (
                     <Button
-                      href={data.instagram}
+                      href={instagramUrl}
                       target="_blank"
                       startIcon={<CiInstagram />}
                       sx={{ textTransform: 'none' }}

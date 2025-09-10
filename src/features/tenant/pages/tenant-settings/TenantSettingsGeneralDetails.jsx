@@ -16,6 +16,7 @@ import { updateTenant, getTenantByKey } from '../../services/tenantService';
 import ImageUpload from '../../../../shared/components/ImageUpload';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../auth/context/AuthContext';
+import { formatSocialUrl } from '../../../../shared/utils/urlUtils';
 
 const fontFamilies = [
   'Roboto',
@@ -103,8 +104,8 @@ const TenantSettingsGeneralDetails = () => {
     motto: formData.motto,
     description: formData.description,
     phone: formData.phone,
-    tiktok: formData.tiktok,
-    instagram: formData.instagram,
+    tiktok: formatSocialUrl(formData.tiktok, 'tiktok'),
+    instagram: formatSocialUrl(formData.instagram, 'instagram'),
     address: formData.address,
     textColour: formData.textColor,
     backgroundColour: formData.backgroundColor,
