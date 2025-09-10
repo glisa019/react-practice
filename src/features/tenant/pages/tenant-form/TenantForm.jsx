@@ -10,6 +10,7 @@ import EmployeeServicesSection from './EmployeeServicesSection';
 import ThemeSettingsSection from './ThemeSettingsSection';
 import Button from '@mui/material/Button';
 import { useAuth } from '../../../auth/context/AuthContext';
+import { formatSocialUrl } from '../../../../shared/utils/urlUtils';
 
 const TenantForm = () => {
   const navigate = useNavigate();
@@ -70,8 +71,8 @@ const TenantForm = () => {
       motto: data.tenantInfo.motto,
       address: data.location.address,
       phone: data.tenantInfo.phone,
-      tiktok: data.tenantInfo.tiktok,
-      instagram: data.tenantInfo.instagram,
+      tiktok: formatSocialUrl(data.tenantInfo.tiktok, 'tiktok'),
+      instagram: formatSocialUrl(data.tenantInfo.instagram, 'instagram'),
       textColour: data.themeSettings.textColor,
       backgroundColour: data.themeSettings.backgroundColor,
       borderColour: data.themeSettings.borderColor,
