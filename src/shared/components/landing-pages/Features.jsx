@@ -59,19 +59,19 @@ const Features = () => {
       <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
         <div className="bg-gray-50 p-6 rounded-lg text-center">
           <p className="text-3xl font-bold text-primary">100%</p>
-          <p className="text-gray-600">Data Isolation</p>
+          <p className="text-gray-600">{t("FEATURES.METRIC_DATA_ISOLATION")}</p>
         </div>
         <div className="bg-gray-50 p-6 rounded-lg text-center">
           <p className="text-3xl font-bold text-primary">24/7</p>
-          <p className="text-gray-600">Uptime</p>
+          <p className="text-gray-600">{t("FEATURES.METRIC_UPTIME")}</p>
         </div>
         <div className="bg-gray-50 p-6 rounded-lg text-center">
           <p className="text-3xl font-bold text-primary">99.9%</p>
-          <p className="text-gray-600">Reliability</p>
+          <p className="text-gray-600">{t("FEATURES.METRIC_RELIABILITY")}</p>
         </div>
         <div className="bg-gray-50 p-6 rounded-lg text-center">
           <p className="text-3xl font-bold text-primary">1K+</p>
-          <p className="text-gray-600">Tenants</p>
+          <p className="text-gray-600">{t("FEATURES.METRIC_TENANTS")}</p>
         </div>
       </div>
     </div>

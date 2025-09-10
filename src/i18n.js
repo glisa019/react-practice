@@ -37,7 +37,11 @@ const resources = {
         "NOTIFICATIONS_DESC": "Configurable alerts per tenant via email, SMS, or in-app.",
         "RBAC": "Role-Based Access",
         "RBAC_DESC": "Granular permissions for tenant admins and users.",
-        "LEARN_MORE": "Learn More →"
+        "LEARN_MORE": "Learn More →",
+        "METRIC_DATA_ISOLATION": "Data Isolation",
+        "METRIC_UPTIME": "Uptime",
+        "METRIC_RELIABILITY": "Reliability",
+        "METRIC_TENANTS": "Tenants"
       },
       "PRICING": {
         "HEADER": "Simple, Transparent Pricing",
@@ -49,6 +53,10 @@ const resources = {
         "FAQ_HEADER": "Frequently Asked Questions",
         "FAQ_1_Q": "Can I switch plans later?",
         "FAQ_1_A": "Yes, you can upgrade/downgrade anytime.",
+        "FAQ_2_Q": "Is there a free trial available?",
+        "FAQ_2_A": "We offer a 14-day free trial for all paid plans.",
+        "FAQ_3_Q": "How does billing work?",
+        "FAQ_3_A": "All plans are billed monthly. Annual billing options are available for Pro and Enterprise plans.",
         "FEATURE_1": "Multi-tenant isolation",
         "FEATURE_2": "Basic analytics",
         "FEATURE_3": "Customization",
@@ -105,7 +113,11 @@ const resources = {
         "NOTIFICATIONS_DESC": "Podesiva obaveštenja po zakupcu putem e-pošte, SMS-a ili u aplikaciji.",
         "RBAC": "Pristup zasnovan na ulogama",
         "RBAC_DESC": "Granularna ovlašćenja za administratore i korisnike zakupaca.",
-        "LEARN_MORE": "Saznaj više →"
+        "LEARN_MORE": "Saznaj više →",
+        "METRIC_DATA_ISOLATION": "Izolacija podataka",
+        "METRIC_UPTIME": "Dostupnost",
+        "METRIC_RELIABILITY": "Pouzdanost",
+        "METRIC_TENANTS": "Zakupaca"
       },
       "PRICING": {
         "HEADER": "Jednostavne, transparentne cene",
@@ -117,6 +129,10 @@ const resources = {
         "FAQ_HEADER": "Često postavljana pitanja",
         "FAQ_1_Q": "Mogu li kasnije promeniti plan?",
         "FAQ_1_A": "Da, možete uvek preći na viši ili niži plan.",
+        "FAQ_2_Q": "Da li je dostupno besplatno probno razdoblje?",
+        "FAQ_2_A": "Nudimo besplatno probno razdoblje od 14 dana za sve plaćene planove.",
+        "FAQ_3_Q": "Kako funkcioniše naplata?",
+        "FAQ_3_A": "Svi planovi se naplaćuju mesečno. Opcije godišnjeg obračuna dostupne su za Pro i Enterprise planove.",
         "FEATURE_1": "Izolacija više zakupaca",
         "FEATURE_2": "Osnovna analitika",
         "FEATURE_3": "Prilagođavanje",
